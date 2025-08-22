@@ -1,4 +1,4 @@
-S.No.,Lat,Long,Subbasin,GL type,Area(ha),Elev(m)
+S.No.,Latitude,Longitude,Subbasin,GL type,Area(ha),Elev(m)
 1,36.412,72.901,Gilgit,M(e),11.23,"4,256"
 2,36.263,73.048,Gilgit,O,21.68,"4,618"
 3,36.642,73.407,Gilgit,M(e),14.06,"2,748"
