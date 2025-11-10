@@ -43,6 +43,39 @@ Data preprocessing is performed in early notebooks (e.g. `Data Cleaning.ipynb`):
 - **Temporal compositing** – multiple dates are aggregated to reduce noise: for non‑GLOF lakes, the median of Year−1, Year and Year+1 is taken; for pre‑GLOF lakes, the median of Year−3, Year−2 and Year−1 is used.  This minimises clouds and seasonal variation.
 - **Vectorisation** – lake rasters are converted to polygons and intersected with glacier polygons to derive shape metrics and perform spatial joins.  Attributes such as area (in hectares) and centroid coordinates are computed.
 
-Implementation functions in the notebooks follow these logical steps.  Typical helper functions include:
+
+### 2. Feature engineering
+
+Comprehensive feature extraction is performed in `Feature Engineering.ipynb` and `Final_LakeFeatures.ipynb`. Key engineered features include:
+
+| Feature | Description |
+|--------|-------------|
+| **`Longitude, Latitude`** | Coordinates of the lake centroid. |
+| **`Year_final`** | Reference year used for expansion rate calculations. |
+| **`Lake_area_calculated_ha`** | Lake area (ha) derived from the vectorised mask. |
+| **`Elevation_m`** | Lake elevation from DEMs. |
+| **`glacier_area_ha`** | Area of the nearest glacier (ha). |
+| **`slope_glac_to_lake`** | Average slope between the lake and the adjacent glacier. |
+| **`glacier_touch_count`** | Number of glacier polygons touching the lake. |
+| **`nearest_glacier_dist_m`** | Horizontal distance from lake polygon to the nearest glacier. |
+| **`glacier_elev_m`** | Elevation of the neighbouring glacier. |
+| **`5y_expansion_rate`, `10y_expansion_rate`** | Percentage change in lake area over 5‑ and 10‑year windows. |
+| **`Lake_type_simplified`** | Categorical label (ice‑contact, moraine‑dammed, or other); one‑hot encoded using `pd.get_dummies()`:contentReference[oaicite:4]{index=4}. |
+| **`is_supraglacial`** | Boolean flag indicating if the lake sits on a glacier. |
+| **`glacier_contact`** | Binary indicator showing whether the lake directly touches a glacier. |
+| **`GLOF`** | Target label: 1 if the lake has a recorded GLOF, 0 otherwise. |
+
+Feature engineering functions in the notebooks compute distances using geodesic formulas, count glacier contacts, and calculate expansion rates:
 
 ```python
+def compute_expansion_rate(area_t0, area_t1, years):
+    """Calculate percentage area change per year over a given period."""
+    return ((area_t1 - area_t0) / area_t0) / years * 100
+
+def count_glacier_contacts(lake_poly, glacier_polys):
+    """Count how many glacier polygons intersect the lake polygon."""
+    return sum(lake_poly.intersects(g) for g in glacier_polys)
+
+
+
+
