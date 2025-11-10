@@ -46,21 +46,3 @@ Data preprocessing is performed in early notebooks (e.g. `Data Cleaning.ipynb`):
 Implementation functions in the notebooks follow these logical steps.  Typical helper functions include:
 
 ```python
-# Example pseudo‑functions used in the notebooks
-
-def mask_contaminated_pixels(image, qa_band):
-    """Apply cloud/shadow/snow masks based on the QA band."""
-    # Identify valid pixels and set others to NaN
-    return masked_image
-
-def calculate_ndwi(green, nir):
-    """Compute the Normalized Difference Water Index."""
-    return (green - nir) / (green + nir)
-
-def threshold_ndwi(ndwi, threshold=0.3):
-    """Classify water pixels by thresholding NDWI."""
-    return ndwi >= threshold
-
-def vectorize_lakes(water_mask, geotransform):
-    """Convert raster water masks to vector polygons, compute area and centroid."""
-    return geopandas.GeoDataFrame(...)
