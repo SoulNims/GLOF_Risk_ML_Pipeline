@@ -97,7 +97,7 @@ After running the EE functions, the resulting datasets (e.g., `df_final_with_lak
 
 ## Handling missing data
 
-Due to Landsat gaps and variable DEM coverage, many features contain `NaN`.  The machine‑learning notebook (`ML_implementation.ipynb`) uses **MICE** from the `miceforest` library to impute missing values.  Positive and negative datasets are imputed separately to avoid label leakage, then concatenated.
+Due to Landsat gaps and variable DEM coverage, many features contain `NaN`.  The machine‑learning notebook (`ML_implementation.ipynb`) uses **MICE** from the `miceforest` library to impute missing values.
 
 ## Model training and evaluation
 
