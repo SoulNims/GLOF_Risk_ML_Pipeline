@@ -208,3 +208,9 @@ __marimo__/
 
 # macOS system junk
 .DS_Store
+
+# your repo specific
+.virtual_documents/
+*.pkl
+Thumbs.db
+
